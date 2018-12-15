@@ -10,37 +10,81 @@ public class BezierCurve : MonoBehaviour
     protected LineRenderer LineRenderer;
     public LineRenderer ControlPointsLineRenderer;
 
+    public bool UseCasteljau;
+
     private void Start()
     {
         LineRenderer = GetComponent<LineRenderer>();
     }
 
-    void FixedUpdate ()
+    Vector3 GetPointCasteljau(Vector3[] controlPoints, float u)
     {
-        Vector3[] points = new Vector3[PointsCount];
-        for (int i = 0; i < PointsCount; i++)
+        Vector3[] points = new Vector3[controlPoints.Length-1];
+        for (int i = 0; i < points.Length; i++)
         {
-            float u = i * (1.0f / (PointsCount - 1));
-            Vector3 point = new Vector3(0.0f, 0.0f, 0.0f);
-            for (int k = 0; k < ControlPoints.Count; k++)
-            {
-                float b = Bernstein_polynomial(k, ControlPoints.Count - 1, u);
-                point.x += b * ControlPoints[k].position.x;
-                point.y += b * ControlPoints[k].position.y;
-                point.z += b * ControlPoints[k].position.z;
-            }
-            points[i] = point;
+            points[i] = Vector3.Lerp(controlPoints[i], controlPoints[i + 1], u);
         }
 
-        LineRenderer.positionCount = PointsCount;
-        LineRenderer.SetPositions(points);
+        if (points.Length == 1)
+        {
+            return points[0];
+        }
+        else
+        {
+            return GetPointCasteljau(points, u);
+        }
+    }
 
-        ControlPointsLineRenderer.positionCount = ControlPoints.Count;
+    Vector3 GetPointBernstein(float u)
+    {
+        Vector3 point = new Vector3(0.0f, 0.0f, 0.0f);
+        for (int i = 0; i < ControlPoints.Count; i++)
+        {
+            float b = Bernstein_polynomial(i, ControlPoints.Count - 1, u);
+            point.x += b * ControlPoints[i].position.x;
+            point.y += b * ControlPoints[i].position.y;
+            point.z += b * ControlPoints[i].position.z;
+        }
+        return point;
+    }
+
+    void FixedUpdate ()
+    {
+        if (PointsCount <= 1)
+        {
+            PointsCount = 2;
+        }
+
         Vector3[] controlPointsPositions = new Vector3[ControlPoints.Count];
         for (int i = 0; i < ControlPoints.Count; i++)
         {
             controlPointsPositions[i] = ControlPoints[i].position;
         }
+
+        //var watch = System.Diagnostics.Stopwatch.StartNew();
+        
+        Vector3[] points = new Vector3[PointsCount];
+        for (int i = 0; i < PointsCount; i++)
+        {
+            float u = i * (1.0f / (PointsCount - 1));
+            if (UseCasteljau)
+            {
+                points[i] = GetPointCasteljau(controlPointsPositions, u);
+            }
+            else
+            {
+                points[i] = GetPointBernstein(u);
+            }
+        }
+
+        //watch.Stop();
+        //var elapsedMs = watch.ElapsedTicks;
+        //Debug.Log("Curve generated in " + elapsedMs + " ticks.");
+
+        LineRenderer.positionCount = PointsCount;
+        LineRenderer.SetPositions(points);
+
+        ControlPointsLineRenderer.positionCount = ControlPoints.Count;
         ControlPointsLineRenderer.SetPositions(controlPointsPositions);
     }
 
