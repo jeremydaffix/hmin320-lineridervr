@@ -48,6 +48,24 @@ public class BezierCurve : MonoBehaviour
         return point;
     }
 
+    Vector3 GetTangent(Vector3[] controlPoints, float u)
+    {
+        Vector3[] points = new Vector3[controlPoints.Length - 1];
+        for (int i = 0; i < points.Length; i++)
+        {
+            points[i] = Vector3.Lerp(controlPoints[i], controlPoints[i + 1], u);
+        }
+
+        if (points.Length == 2)
+        {
+            return (points[0] - points[1]).normalized;
+        }
+        else
+        {
+            return GetTangent(points, u);
+        }
+    }
+
     void FixedUpdate ()
     {
         if (PointsCount <= 1)
@@ -75,6 +93,13 @@ public class BezierCurve : MonoBehaviour
             {
                 points[i] = GetPointBernstein(u);
             }
+
+            Vector3 tangent = GetTangent(controlPointsPositions, u);
+            Debug.DrawLine(points[i], points[i] + tangent, Color.red);
+            Vector3 binormal = Vector3.Cross(Vector3.up, tangent).normalized;
+            Debug.DrawLine(points[i], points[i] + binormal, Color.green);
+            Vector3 normal = Vector3.Cross(tangent, binormal);
+            Debug.DrawLine(points[i], points[i] + normal, Color.cyan);
         }
 
         //watch.Stop();
