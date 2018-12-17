@@ -28,6 +28,7 @@ GameObject:
   - component: {fileID: 54661169555597524}
   - component: {fileID: 114301868643772374}
   - component: {fileID: 114424472491415266}
+  - component: {fileID: 114379348836811396}
   m_Layer: 0
   m_Name: Ball
   m_TagString: Untagged
@@ -169,6 +170,17 @@ MonoBehaviour:
   objectHighlighter: {fileID: 0}
   touchHighlightColor: {r: 0, g: 0, b: 0, a: 0}
   usingState: 0
+--- !u!114 &114379348836811396
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1224852160806638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e46b91a46e7459d4787595eb50a9adc3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114424472491415266
 MonoBehaviour:
   m_ObjectHideFlags: 1
