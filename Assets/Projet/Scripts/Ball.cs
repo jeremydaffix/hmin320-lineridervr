@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
+    public BezierCurve Bezier;
+
     private bool collRubber = false;
 
 
@@ -40,6 +42,7 @@ public class Ball : MonoBehaviour
 
             collRubber = false;
 
+            Bezier.ControlPoints.Remove(transform);
             Destroy(gameObject); // bim
         }
     }

@@ -11,6 +11,7 @@ public class BezierCurve : MonoBehaviour
     public LineRenderer ControlPointsLineRenderer;
 
     public bool UseCasteljau;
+    public bool UseJustPoints;
 
     private void Start()
     {
@@ -68,6 +69,17 @@ public class BezierCurve : MonoBehaviour
 
     void FixedUpdate ()
     {
+        //Debug.Log(PointsCount);
+        if (ControlPoints.Count < 3)
+        {
+            LineRenderer.positionCount = 0;
+
+            ControlPointsLineRenderer.positionCount = 0;
+
+            return; ////
+        }
+                                     
+
         if (PointsCount <= 1)
         {
             PointsCount = 2;
@@ -89,6 +101,10 @@ public class BezierCurve : MonoBehaviour
             {
                 points[i] = GetPointCasteljau(controlPointsPositions, u);
             }
+            /*else if (UseJustPoints)
+            {
+                points[i] = controlPointsPositions[i];
+            }*/
             else
             {
                 points[i] = GetPointBernstein(u);

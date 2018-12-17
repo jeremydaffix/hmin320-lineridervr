@@ -119,6 +119,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4830702256175318}
+  - component: {fileID: 114923357147413610}
   m_Layer: 9
   m_Name: Palette
   m_TagString: Untagged
@@ -823,6 +824,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   BallPrefab: {fileID: 1224852160806638, guid: 329566c3faf39ef4aa700ed7fec555bb, type: 2}
   PencilLead: {fileID: 1746002634090256}
+  Bezier: {fileID: 0}
 --- !u!114 &114361365285568802
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1236,6 +1238,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   RubberEnabled: 0
+--- !u!114 &114923357147413610
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1967024822957936}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d38262d8fd692c419fe1f49b2167ea2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Instance: {fileID: 0}
 --- !u!114 &114998511141428694
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -8,6 +8,8 @@ public class Pencil : MonoBehaviour {
 
     public GameObject PencilLead;
 
+    public BezierCurve Bezier;
+
     private Vector3 initPos;
     private Quaternion initRot;
 
@@ -37,8 +39,9 @@ public class Pencil : MonoBehaviour {
         //Debug.Log(transform.parent.localPosition);
         //Debug.Log(transform.parent.localRotation.eulerAngles);
 
-        Debug.Log(PencilLead.transform.position);
+        b.GetComponent<Ball>().Bezier = Bezier;
 
+        Bezier.ControlPoints.Add(b.transform);
     }
 
 
