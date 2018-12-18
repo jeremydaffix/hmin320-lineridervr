@@ -42,5 +42,8 @@ public class Rubber : MonoBehaviour {
         transform.localRotation = initRot;
 
         RubberEnabled = false;
+
+        PaletteTools.Instance.HapticLeft(0.5f);
+        PaletteTools.Instance.HapticRight(0.3f);
     }
 }

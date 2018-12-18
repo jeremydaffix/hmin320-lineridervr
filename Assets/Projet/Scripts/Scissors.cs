@@ -30,5 +30,8 @@ public class Scissors : MonoBehaviour {
         Debug.Log("BACK");
         transform.localPosition = initPos;
         transform.localRotation = initRot;
+
+        PaletteTools.Instance.HapticLeft(0.5f);
+        PaletteTools.Instance.HapticRight(0.3f);
     }
 }

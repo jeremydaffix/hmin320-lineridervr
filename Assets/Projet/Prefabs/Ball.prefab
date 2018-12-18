@@ -123,12 +123,12 @@ MonoBehaviour:
   intervalOnNearTouch: 0.05
   cancelOnNearUntouch: 1
   clipOnTouch: {fileID: 0}
-  strengthOnTouch: 0
+  strengthOnTouch: 0.4
   durationOnTouch: 0
   intervalOnTouch: 0.05
   cancelOnUntouch: 1
   clipOnGrab: {fileID: 0}
-  strengthOnGrab: 0
+  strengthOnGrab: 0.8
   durationOnGrab: 0
   intervalOnGrab: 0.05
   cancelOnUngrab: 1
@@ -181,6 +181,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e46b91a46e7459d4787595eb50a9adc3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Bezier: {fileID: 0}
 --- !u!114 &114424472491415266
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -44,6 +44,8 @@ public class Ball : MonoBehaviour
 
             Bezier.ControlPoints.Remove(transform);
             Destroy(gameObject); // bim
+
+            PaletteTools.Instance.HapticRight(1.0f);
         }
     }
 }

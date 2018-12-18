@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using VRTK;
 
 public class Pencil : MonoBehaviour {
 
@@ -19,6 +20,11 @@ public class Pencil : MonoBehaviour {
 	{
 	    initPos = transform.localPosition;
 	    initRot = transform.localRotation;
+
+	    foreach (Vector3 pos in TrackModel.TrackPositions) // on récupère nos boules éventuelles
+	    {
+            CreateBallAtPos(pos);
+	    }
 	}
 	
 	// Update is called once per frame
@@ -29,15 +35,18 @@ public class Pencil : MonoBehaviour {
 
     public void CreateBall()
     {
+        //Debug.Log("CREATING BALL");
+
+        CreateBallAtPos(PencilLead.transform.position);
+
+        PaletteTools.Instance.HapticRight(0.8f);
+    }
+
+    void CreateBallAtPos(Vector3 pos)
+    {
         Debug.Log("CREATING BALL");
 
-        //GameObject b = GameObject.Instantiate(BallPrefab, transform.position, new Quaternion());
-        GameObject b = GameObject.Instantiate(BallPrefab, PencilLead.transform.position, new Quaternion());
-
-        //b.transform.localPosition += new Vector3(0f, 0.15f, 0f);
-
-        //Debug.Log(transform.parent.localPosition);
-        //Debug.Log(transform.parent.localRotation.eulerAngles);
+        GameObject b = GameObject.Instantiate(BallPrefab, pos, new Quaternion());
 
         b.GetComponent<Ball>().Bezier = Bezier;
 
@@ -50,5 +59,8 @@ public class Pencil : MonoBehaviour {
         Debug.Log("BACK");
         transform.localPosition = initPos;
         transform.localRotation = initRot;
+
+        PaletteTools.Instance.HapticLeft(0.5f);
+        PaletteTools.Instance.HapticRight(0.3f);
     }
 }
