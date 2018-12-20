@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Ball : MonoBehaviour
 {
-    public BezierCurve Bezier;
+    //public CurveMesh Bezier;
 
     private bool collRubber = false;
 
@@ -42,7 +42,7 @@ public class Ball : MonoBehaviour
 
             collRubber = false;
 
-            Bezier.ControlPoints.Remove(transform);
+            PaletteTools.Instance.Bezier.ControlPoints.Remove(transform);
             Destroy(gameObject); // bim
 
             PaletteTools.Instance.HapticRight(1.0f);

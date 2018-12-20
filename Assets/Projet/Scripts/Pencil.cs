@@ -9,7 +9,7 @@ public class Pencil : MonoBehaviour {
 
     public GameObject PencilLead;
 
-    public BezierCurve Bezier;
+    //public CurveMesh Bezier;
 
     private Vector3 initPos;
     private Quaternion initRot;
@@ -48,9 +48,9 @@ public class Pencil : MonoBehaviour {
 
         GameObject b = GameObject.Instantiate(BallPrefab, pos, new Quaternion());
 
-        b.GetComponent<Ball>().Bezier = Bezier;
+        //b.GetComponent<Ball>().Bezier = Bezier;
 
-        Bezier.ControlPoints.Add(b.transform);
+        PaletteTools.Instance.Bezier.ControlPoints.Add(b.transform);
     }
 
 

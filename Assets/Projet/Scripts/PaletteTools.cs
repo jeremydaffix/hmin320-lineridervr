@@ -12,7 +12,7 @@ public class PaletteTools : MonoBehaviour
 
 
     public GameObject LeftController, RightController;
-    public BezierCurve Bezier;
+    public CurveMesh Bezier;
 
 
     private int cptScreen = 0;
