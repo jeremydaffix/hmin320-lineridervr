@@ -152,6 +152,8 @@ public class MeshGenerator : MonoBehaviour
         mesh.normals = normals;
         mesh.uv = uvs;
         mesh.triangles = triangleIndices;
+
+        GetComponent<MeshCollider>().sharedMesh = mesh;
     }
 
     void Update ()
