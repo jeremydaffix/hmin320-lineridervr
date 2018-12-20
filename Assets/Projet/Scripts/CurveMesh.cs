@@ -148,7 +148,7 @@ public class CurveMesh : MonoBehaviour
         int index = 0;
 
         int segments = PointsCount - 1;
-        int triCount = segments * 7 * 2;
+        int triCount = segments * 7 * 2 + 2 * segments;
         int triIndexCount = triCount * 3;
 
         Vector3[] vertices = new Vector3[8 * PointsCount];
@@ -182,7 +182,7 @@ public class CurveMesh : MonoBehaviour
 
 
             vertices[i * 8 + 0] = points[i] + binormal * (roadWidth / 2.0f + edgeWidth);
-            normals[i * 8 + 0] = binormal;
+            normals[i * 8 + 0] = (binormal - normal) / 2.0f;
             
             uvs[i * 8 + 0] = new Vector2(0.0f, 0.0f);
             vertices[i * 8 + 1] = points[i] + binormal * (roadWidth / 2.0f + edgeWidth) + normal * (edgeHeight);
@@ -204,10 +204,10 @@ public class CurveMesh : MonoBehaviour
             normals[i * 8 + 6] = (-binormal + normal) / 2.0f;
             uvs[i * 8 + 6] = new Vector2(0.0f, 1.0f);
             vertices[i * 8 + 7] = points[i] - binormal * (roadWidth / 2.0f + edgeWidth);
-            normals[i * 8 + 7] = -binormal;
+            normals[i * 8 + 7] = (-binormal - normal) / 2.0f;
             uvs[i * 8 + 7] = new Vector2(0.0f, 0.0f);
-            /*
             GameObject[] gameobjects = new GameObject[8];
+            /*
             for (int v = 0; v < 8; v++)
             {
                 gameobjects[v] = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -230,6 +230,15 @@ public class CurveMesh : MonoBehaviour
                     triangleIndices[index++] = (i+1) * 8 + k;
                     triangleIndices[index++] = (i+1) * 8 + k + 1;
                 }
+
+                triangleIndices[index++] = i * 8;
+                triangleIndices[index++] = i * 8 + 7;
+                triangleIndices[index++] = (i + 1) * 8;
+
+                triangleIndices[index++] = i * 8 + 7;
+                triangleIndices[index++] = (i + 1) * 8 + 7;
+                triangleIndices[index++] = (i + 1) * 8;
+
             }
         }
 
