@@ -14,6 +14,13 @@ public class CurveMesh : MonoBehaviour
     public bool UseCasteljau;
     public bool UseJustPoints;
 
+    public float MeshEdgeHeight = 0.15f;
+    public float MeshEdgeWidth = 0.15f;
+    public float MeshRoadWidth = 1.0f;
+    [Range(0.1f, 3.0f)]
+    public float MeshScale = 1.0f;
+    private float LastScale;
+
     protected MeshFilter MeshFilterComponent;
     protected MeshCollider MeshColliderComponent;
 
@@ -26,6 +33,7 @@ public class CurveMesh : MonoBehaviour
         ControlPointsPositions = new List<Vector3>();
         Generate();
         LastPointsCount = PointsCount;
+        LastScale = MeshScale;
     }
 
     Vector3 GetPointCasteljau(Vector3[] controlPoints, float u)
@@ -114,6 +122,10 @@ public class CurveMesh : MonoBehaviour
                 {
                     LastPointsCount = PointsCount;
                 }
+                else if (MeshScale != LastScale)
+                {
+                    LastScale = MeshScale;
+                }
                 else
                 {
                     return;
@@ -129,9 +141,9 @@ public class CurveMesh : MonoBehaviour
 
         var watch = System.Diagnostics.Stopwatch.StartNew();
 
-        float edgeHeight = 0.15f;
-        float edgeWidth = 0.15f;
-        float roadWidth = 1.0f;
+        float edgeHeight = MeshEdgeHeight * MeshScale;
+        float edgeWidth = MeshEdgeWidth * MeshScale;
+        float roadWidth = MeshRoadWidth * MeshScale;
 
         int index = 0;
 
