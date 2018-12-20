@@ -12,6 +12,12 @@ public class Simu : MonoBehaviour {
 
 
     public GameObject LeftController, RightController;
+    public GameObject BallPrefab;
+    public CurveMesh Bezier;
+
+    public GameObject LugePrefab;
+
+    GameObject luge;
 
 
     VRTK_ControllerReference handL, handR;
@@ -42,6 +48,22 @@ public class Simu : MonoBehaviour {
             evL.ButtonOneReleased += new ControllerInteractionEventHandler(LB1Released);
             evL.ButtonTwoReleased += new ControllerInteractionEventHandler(LB2Released);
         }
+
+
+        //
+
+        Invoke("StartDemo", 0.5f); // obligé d'attendre un peu sinon la camera vrtk n'est pas chargée...
+
+        //
+
+        //Bezier.ControlPoints.Clear();
+
+        foreach (Vector3 pos in TrackModel.TrackPositions) // on récupère nos boules éventuelles
+        {
+            Debug.Log("LOAD BALL AT " + pos);
+            Vector3 newPos = pos * 30f;
+            CreateBallAtPos(newPos);
+        }
     }
 
     // Update is called once per frame
@@ -49,6 +71,34 @@ public class Simu : MonoBehaviour {
     {
         
 
+    }
+
+
+    public void StartDemo()
+    {
+        // https://opengameart.org/content/jump-higher-run-faster-jump-run-miniboss-mix
+
+
+        Transform rig = VRTK_DeviceFinder.PlayAreaTransform(); // objet contenant le rigidbody (multidevice normalement)
+
+        luge = GameObject.Instantiate(LugePrefab, rig.position, Quaternion.Euler(0f,180f,0f));
+        //luge.transform.SetParent(rig);
+
+        if (TrackModel.TrackPositions.Count > 0)
+        {
+
+            Vector3 posDepart = (TrackModel.TrackPositions[0] * 30f) + new Vector3(0f, 0.5f, 1f);
+
+            //rig.GetComponent<Rigidbody>().MovePosition(posDepart);
+            rig.position = posDepart;
+
+            luge.transform.position = posDepart; ////
+            
+
+            luge.transform.SetParent(rig.parent);
+            rig.SetParent(luge.transform);
+            Destroy(rig.GetComponent<Rigidbody>());
+        }
     }
 
 
@@ -68,7 +118,7 @@ public class Simu : MonoBehaviour {
     void RB1Released(object sender, ControllerInteractionEventArgs e)
     {
 
-        SceneManager.LoadScene("Editor");
+        SceneManager.LoadScene("Editor", LoadSceneMode.Single);
     }
 
     // reset
@@ -87,5 +137,17 @@ public class Simu : MonoBehaviour {
     void LB2Released(object sender, ControllerInteractionEventArgs e)
     {
         Debug.Log("RESET");
+    }
+
+
+
+
+    void CreateBallAtPos(Vector3 pos)
+    {
+        Debug.Log("CREATING BALL");
+
+        GameObject b = GameObject.Instantiate(BallPrefab, pos, new Quaternion());
+
+        Bezier.ControlPoints.Add(b.transform);
     }
 }

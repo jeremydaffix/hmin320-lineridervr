@@ -21,8 +21,15 @@ public class Pencil : MonoBehaviour {
 	    initPos = transform.localPosition;
 	    initRot = transform.localRotation;
 
-	    foreach (Vector3 pos in TrackModel.TrackPositions) // on récupère nos boules éventuelles
+
+	    //PaletteTools.Instance.Bezier.ControlPoints.Clear();;
+
+        // BUG
+        // clear quelque part qui annule ajout dans controlpoints ?
+
+        foreach (Vector3 pos in TrackModel.TrackPositions) // on récupère nos boules éventuelles
 	    {
+            Debug.Log("LOAD BALL AT " + pos);
             CreateBallAtPos(pos);
 	    }
 	}

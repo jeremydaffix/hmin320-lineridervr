@@ -90,9 +90,11 @@ public class PaletteTools : MonoBehaviour
 
         foreach (Transform t in Bezier.ControlPoints)
         {
+            Debug.Log("SAVE BALL AT " + t.position);
+
             TrackModel.TrackPositions.Add(t.position);
         }
 
-        SceneManager.LoadScene("Simulator");
+        SceneManager.LoadScene("Simulator", LoadSceneMode.Single);
     }
 }
