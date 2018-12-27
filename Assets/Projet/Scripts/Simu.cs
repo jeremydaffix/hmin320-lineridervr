@@ -47,6 +47,9 @@ public class Simu : MonoBehaviour {
 
             evL.ButtonOneReleased += new ControllerInteractionEventHandler(LB1Released);
             evL.ButtonTwoReleased += new ControllerInteractionEventHandler(LB2Released);
+
+
+            evL.TriggerReleased += new ControllerInteractionEventHandler(RB1Released);
         }
 
 

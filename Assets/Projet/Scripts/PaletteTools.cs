@@ -39,8 +39,9 @@ public class PaletteTools : MonoBehaviour
 
 	    if (evR != null)
 	    {
-            evR.ButtonOneReleased += new ControllerInteractionEventHandler(B1Released); ;
-	    }
+            evR.ButtonOneReleased += new ControllerInteractionEventHandler(B1Released);
+            evL.TriggerReleased += new ControllerInteractionEventHandler(B1Released);
+        }
     }
 	
 	// Update is called once per frame
