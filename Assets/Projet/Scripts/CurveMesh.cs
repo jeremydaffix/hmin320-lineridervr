@@ -242,6 +242,9 @@ public class CurveMesh : MonoBehaviour
             }
         }
 
+        Debug.Log("index count: " + index + "/" + triIndexCount);
+        
+
 
         if (MeshFilterComponent.mesh == null)
             MeshFilterComponent.mesh = new Mesh();
